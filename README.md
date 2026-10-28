@@ -1,6 +1,4 @@
-# Atelier by eli — visual HTML/CSS/JS studio
-
-# Atelier by eli — React visual website studio
+# Atelier by eli — React visual HTML/CSS/JS studio
 
 An editor built with **React 19 and Vite 7**, using a real HTML node tree and an inspectable CSS document model. The editor and the exported website are separate: **open the React app**, not an exported `index.html`, to edit elements.
 
@@ -26,9 +24,9 @@ Use **Vite** as the Vercel framework preset, **`npm run build`** as the build co
 
 ## How to use
 
-1. Go to **Layers → body** to select and style the page itself. Clicking the empty page background also selects the body. All elements in the page are under this root.
+1. Go to **Layers → body** to select and style the page itself. Blank-space taps leave selection unchanged to prevent accidental changes. All elements in the page are under this root.
 2. Go to **Elements → Structure → Box** to add a `div`; select a container before adding other elements to nest them inside it. Use **Content → Wrap in box** to group an existing element.
-3. Tap any node in the canvas or Layers to select it. On desktop, drag a palette tile onto a container or drag a node onto another container to reparent it. The grip on a selected node allows absolute positioning.
+3. Tap any node in the canvas or Layers to select it. On desktop, drag a palette tile onto a container or drag a node onto another container to reparent it. The floating Move handle lets you reposition a node while preserving normal document flow.
 4. Change **Mobile, Tablet, Desktop** viewport sizes. The preview is genuinely constrained to a device-height scrolling pane; swipe or scroll inside it without scrolling the editor. For breakpoint-only CSS edits, toggle **Base** to the active device in the inspector.
 5. Use **Design** to edit actual CSS properties, **Content** to edit text, tag, class, ID, and attributes, **Motion** for CSS animations, and **Actions** for generated JavaScript events.
 6. Open **Code**, then **Copy full page** to copy a standalone one-file HTML document. Or copy HTML, CSS, and JavaScript separately. **Export code** downloads a ZIP containing `index.html`, `style.css`, `script.js`.
@@ -54,7 +52,7 @@ This is not a full Figma/Webflow replacement. It does not include arbitrary plug
 ## Resize, grouping, and canvas-selection behavior
 
 - Click an element to see eight on-canvas resize grips. Drag a grip with a mouse or touch; releasing saves CSS `width` and `height` for the active viewport, and Undo restores the previous size. Hold Shift while dragging a corner to maintain the aspect ratio.
-- Open **Layers → Select multiple**, tap sibling layers, then choose **Group**. On desktop, Shift/Ctrl-click elements and press **Ctrl/Cmd+G**. Groups are exported as actual nested HTML `<div class="studio-group">` containers. Choose **Ungroup** or press **Ctrl/Cmd+Shift+G** to unwrap the group without deleting its children.
+- Open **Layers → Select multiple**, tap sibling layers, then choose **Group**. On desktop, **Shift + right-click** another element to add it to the selection; repeat for more elements, then press **Ctrl/Cmd+G** or **Group**. Shift-click and Ctrl/Cmd-click also work. On mobile, first tap one element, press **Select multiple** above the canvas footer, tap more elements, then press **Group**; use **Done** to leave selection mode. Groups are exported as actual nested HTML `<div class="studio-group">` containers. Choose **Ungroup** or press **Ctrl/Cmd+Shift+G** to unwrap the group without deleting its children.
 - To preserve HTML semantics, only layers sharing the same immediate parent can be grouped. The editor displays an explanation for incompatible selections.
 - Generated HTML/CSS/JS contains no boilerplate comments; any comments entered intentionally in custom CSS or JavaScript are kept.
 - Tapping empty page space does not change the selected element or canvas position. Scroll gestures are excluded from selection, and HTML5 native element dragging is disabled for coarse touch pointers. Select the page `body` explicitly in Layers or via its breadcrumb.
@@ -72,5 +70,9 @@ These changes are backed by the document-model and geometry tests in `tests/grou
 
 The drag/alignment engine is tested with node:test. Device-specific touch behavior requires testing on actual browsers.
 
-## Multi-selection
-Desktop: select the first canvas element, then Shift + right-click more elements. Mobile: select one element, use Select multiple above the canvas footer, then tap more and press Group. Animated SVG control icons adapt to high-density screens and reduced motion.
+## October 2026 — selection and animated icon update
+
+- **Desktop multi-select:** Select a first canvas element, then Shift + right-click additional elements (including nested ones) to toggle them into the selection without opening the native context menu. Continue Shift + right-click to select more, then click **Group** or press Ctrl/Cmd+G. Ordinary right-click still opens the native menu.
+- **Mobile multi-select:** Tap the first element, select **Select multiple** in the canvas toolbar, tap further elements, then press **Group**. The first element is retained when selection mode begins. Use **Done** to return to normal editing. The same controls are available in Layers.
+- **Layer actions:** Search, expand/collapse, move up/down, duplicate, and grouping controls use device-independent SVG instead of text glyphs. Icons have raised surfaces and subtle hover/active animation, with reduced-motion support.
+- Selecting/grouping affects only editor UI; generated HTML/CSS/JS stays free of editor-specific selection markup.

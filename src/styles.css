@@ -184,27 +184,61 @@ button.layer-expand:disabled{opacity:.38;cursor:default}
 
 .atelier-opening-draining{background:transparent}.atelier-opening-draining::before{opacity:0}
 
-.canvas-selection-toolbar{display:flex;align-items:center;gap:9px;padding:8px 14px;min-height:51px;flex-shrink:0;background:#fffdf9;border-top:1px solid #e5e7df;border-bottom:1px solid #e5e7df;overflow-x:auto;scrollbar-width:none}
-.canvas-selection-toolbar button{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:35px;padding:6px 11px;white-space:nowrap;border-radius:9px;border:1px solid #dce3d9;background:#f8faf6;color:#344c3c;font-size:11px;font-weight:750;transition:transform .17s,background .17s}
-.canvas-selection-toolbar button:hover:not(:disabled){background:#eef5ee;transform:translateY(-1px)}
-.canvas-selection-toolbar button:active:not(:disabled){transform:scale(.96)}
+
+/* Multi-selection, shared across desktop and touch. This toolbar is editor UI, not exported CSS. */
+.canvas-selection-toolbar{display:flex;align-items:center;gap:9px;padding:8px 14px;min-height:51px;flex-shrink:0;background:#fffdf9;border-top:1px solid #e5e7df;border-bottom:1px solid #e5e7df;box-shadow:0 -4px 14px #2232270a;overflow-x:auto;scrollbar-width:none}
+.canvas-selection-toolbar::-webkit-scrollbar{display:none}
+.canvas-selection-toolbar button{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:35px;padding:6px 11px;white-space:nowrap;border-radius:9px;border:1px solid #dce3d9;background:#f8faf6;color:#344c3c;font-size:11px;font-weight:750;transition:transform .17s,background .17s,border-color .17s,box-shadow .17s}
+.canvas-selection-toolbar button:hover:not(:disabled){background:#eef5ee;border-color:#95b49e;box-shadow:0 2px 7px #263c2714;transform:translateY(-1px)}
+.canvas-selection-toolbar button:active:not(:disabled){transform:translateY(1px) scale(.98)}
 .canvas-selection-toolbar button.active{background:#354d3f;color:#fff;border-color:#354d3f}
-.canvas-selection-toolbar button.canvas-group-button{background:#bd674c;color:#fff;border-color:#bd674c}
-.canvas-selection-toolbar button:disabled{opacity:.45}
-.canvas-selection-label{display:inline-flex;align-items:center;gap:8px;white-space:nowrap;color:#627166;font-size:11px;padding-right:10px;border-right:1px solid #e6ebe3}
-.canvas-selection-label strong{max-width:100px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.group-controls button{display:inline-flex;align-items:center;gap:5px}
-.layer-expand:disabled .ui-icon{opacity:.35}
-.viewport-switch button{color:#566a5b}
-.viewport-switch button.active{color:#243c2b;background:linear-gradient(145deg,#fff,#ecf2eb);box-shadow:inset 0 1px 0 #fff,0 2px 4px #2432261a}
-.search-wrap .ui-icon{color:#687970}
-.ui-icon{filter:drop-shadow(0 1px 0 #fff3);transition:transform .28s cubic-bezier(.2,1.6,.4,1),filter .24s}
-button:not(:disabled):hover .ui-icon,button:not(:disabled):focus-visible .ui-icon{transform:translateY(-1px) scale(1.13);filter:drop-shadow(0 2px 2px #273a3333)}
-button:not(:disabled):active .ui-icon{transform:translateY(1px) scale(.9)}
-.ui-icon .ui-group-left,.ui-icon .ui-group-right{transform-box:fill-box;transform-origin:center;transition:transform .35s}
+.canvas-selection-toolbar button.canvas-group-button{background:#bd674c;color:white;border-color:#bd674c}
+.canvas-selection-toolbar button.canvas-group-button:disabled{opacity:.48;background:#e5e5e1;color:#707971;border-color:#e0e2dd}
+.canvas-selection-toolbar button:focus-visible{outline:2px solid #cf805c;outline-offset:2px}
+.canvas-selection-label{display:inline-flex;align-items:center;gap:8px;white-space:nowrap;color:#627166;font-size:11px;padding-right:11px;border-right:1px solid #e6ebe3;min-width:0}
+.canvas-selection-label strong{text-overflow:ellipsis;overflow:hidden;max-width:135px;font-weight:760}
+.group-controls button{display:inline-flex;justify-content:center;align-items:center;gap:6px}
+.layer-expand:disabled .ui-icon{opacity:.34}
+.layer-inline-actions .ui-icon{color:#98604c}
+.search-wrap .ui-icon{flex:0 0 auto;color:#687970}
+.canvas-select-tip{font-size:10px;color:#7b897d}
+@media(max-width:1000px), (pointer:coarse) and (max-device-width:650px){
+ .canvas-selection-toolbar{min-height:58px;padding:7px 9px;gap:6px}
+ .canvas-selection-toolbar button{min-height:43px;padding:7px 10px;font-size:11px;touch-action:manipulation}
+ .canvas-selection-label{font-size:10px;padding-right:7px}
+ .canvas-selection-label strong{max-width:76px}
+ .canvas-selection-toolbar .canvas-done-button{padding:7px 9px}
+ .canvas-selection-toolbar .canvas-done-button span{display:none}
+}
+@media(max-width:420px){.canvas-selection-label strong{max-width:60px}.canvas-selection-toolbar button{font-size:10px;gap:5px}}
+
+/* Tactile two-tone SVG icons. They don't require emoji fonts or third-party CDNs. */
+.ui-icon{color:inherit;filter:drop-shadow(0 1px 0 rgba(255,255,255,.19));will-change:transform;transition:transform .28s cubic-bezier(.2,1.6,.4,1),filter .24s,color .2s}
+button:not(:disabled):hover .ui-icon,button:not(:disabled):focus-visible .ui-icon{transform:translateY(-1px) scale(1.13);filter:drop-shadow(0 2px 2px rgba(40,61,47,.2))}
+button:not(:disabled):active .ui-icon{transform:translateY(1px) scale(.89)}
+.ui-icon .ui-settings-gear,.ui-icon .ui-group-left,.ui-icon .ui-group-right,.ui-icon .ui-multi-links,.ui-icon .ui-ungroup-left,.ui-icon .ui-ungroup-right{transform-box:fill-box;transform-origin:center;transition:transform .35s cubic-bezier(.2,1.5,.4,1),opacity .3s}
+button:hover .ui-icon-settings .ui-settings-gear{transform:rotate(36deg)}
 button:hover .ui-icon-group .ui-group-left{transform:translateX(3px)}
 button:hover .ui-icon-group .ui-group-right{transform:translateX(-3px)}
-.canvas-selection-toolbar button.active .ui-icon-multi{animation:atelier-tactile-pulse 2.4s ease-in-out infinite}
-@keyframes atelier-tactile-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.14)}}
-@media(max-width:1000px), (pointer:coarse) and (max-device-width:650px){.canvas-selection-toolbar{min-height:58px;padding:7px 9px;gap:6px}.canvas-selection-toolbar button{min-height:43px;padding:7px 10px;font-size:11px;touch-action:manipulation}.canvas-selection-label strong{max-width:65px}.viewport-switch button .ui-icon{width:19px;height:19px;stroke-width:2.35}.mobile-nav button .ui-icon{width:21px;height:21px;stroke-width:2.25}}
-@media(prefers-reduced-motion:reduce){.ui-icon,.ui-icon *,.canvas-selection-toolbar button{transition:none!important;animation:none!important}}
+button:hover .ui-icon-ungroup .ui-ungroup-left{transform:translate(-2px,-2px)}
+button:hover .ui-icon-ungroup .ui-ungroup-right{transform:translate(2px,2px)}
+button:hover .ui-icon-multi .ui-multi-links{transform:scale(1.25)}
+.canvas-multi-button.active .ui-icon-multi{animation:atelier-icon-pulse 2.4s ease-in-out infinite}
+.canvas-group-button:enabled .ui-icon-group{animation:atelier-icon-nudge 3.2s ease-in-out infinite}
+@keyframes atelier-icon-pulse{0%,100%{filter:drop-shadow(0 0 0 transparent);transform:scale(1)}50%{filter:drop-shadow(0 0 3px #fff8);transform:scale(1.14)}}
+@keyframes atelier-icon-nudge{0%,82%,100%{transform:translateX(0)}87%{transform:translateX(-2px)}92%{transform:translateX(2px)}}
+@media(prefers-reduced-motion:reduce){.ui-icon,.ui-icon *,button .ui-icon,.canvas-selection-toolbar button{transition:none!important;animation:none!important}}
+
+/* Legible controls on Android and high-density screens. */
+.viewport-switch button{color:#566a5b}
+.viewport-switch button.active{color:#243c2b;background:linear-gradient(145deg,#fff,#ecf2eb);box-shadow:inset 0 1px 0 #fff,0 2px 4px #2432261a}
+.zoom-row button:not(:disabled){color:#465b4c}
+.zoom-row button:hover:not(:disabled){background:linear-gradient(150deg,#fff,#ebf0e8);box-shadow:0 2px 6px #26362714}
+.mobile-nav button .ui-icon{stroke-width:2.25}
+.mobile-nav button.active .ui-icon{filter:drop-shadow(0 2px 1px #be71502c)}
+@media(max-width:1000px), (pointer:coarse) and (max-device-width:650px){
+ .viewport-switch button .ui-icon{width:19px;height:19px;stroke-width:2.35}
+ .zoom-row button .ui-icon{stroke-width:2.3}
+ .mobile-nav button .ui-icon{width:21px;height:21px}
+ .layer-inline-actions button .ui-icon{width:18px;height:18px}
+}
