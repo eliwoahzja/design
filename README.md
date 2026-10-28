@@ -27,4 +27,24 @@ Use **Vite** as the Vercel framework preset, **`npm run build`** as the build co
 1. Go to **Layers â†’ body** to select and style the page itself. Clicking the empty page background also selects the body. All elements in the page are under this root.
 2. Go to **Elements â†’ Structure â†’ Box** to add a `div`; select a container before adding other elements to nest them inside it. Use **Content â†’ Wrap in box** to group an existing element.
 3. Tap any node in the canvas or Layers to select it. On desktop, drag a palette tile onto a container or drag a node onto another container to reparent it. The grip on a selected node allows absolute positioning.
-4. Change **Mobile, Tab¶»§q«^
+4. Change **Mobile, Tablet, Desktop** viewport sizes. The preview is genuinely constrained to a device-height scrolling pane; swipe or scroll inside it without scrolling the editor. For breakpoint-only CSS edits, toggle **Base** to the active device in the inspector.
+5. Use **Design** to edit actual CSS properties, **Content** to edit text, tag, class, ID, and attributes, **Motion** for CSS animations, and **Actions** for generated JavaScript events.
+6. Open **Code**, then **Copy full page** to copy a standalone one-file HTML document. Or copy HTML, CSS, and JavaScript separately. **Export code** downloads a ZIP containing `index.html`, `style.css`, `script.js`.
+7. Switch **Edit code** on the HTML or CSS tab to import supported source changes into the visual document. The JS tab accepts custom JavaScript executed by the exported website, alongside generated interactions. Unsupported HTML tags are rejected rather than silently deleted.
+
+## Undo, preserved gaps, and Layers
+
+- **Undo / Redo:** The editor keeps up to 90 document revisions and restores the previous selection. Use the Undo / Redo buttons in the canvas footer (also available on phones), or `Ctrl/Cmd+Z` and `Ctrl/Cmd+Shift+Z` / `Ctrl+Y`. Undo after deleting restores the original element and its content.
+- **Preserved empty space:** Deleting an element creates a temporary editor-only placeholder with the removed element's measured width and height. Adjacent Flexbox/Grid elements therefore keep their positions while you decide what to insert. Drop a palette item into the placeholder, select it in Layers and choose **Add [tag] here**, or undo the deletion. To intentionally collapse the space, select the placeholder and use **Remove this space**.
+- **Layers:** Open **Layers** (bottom navigation on mobile) to select the `body` or any nested element without being sent back to the canvas. Expand and collapse groups, drag nodes into containers, or use the arrows on the selected row to reorder siblings. On mobile, tap **Canvas** when ready to edit visually.
+- **Export behavior:** Reserved slots are editor aids, not HTML elements. No placeholder tags or styles are emitted to HTML/CSS/JS exports. Preview reflects the final exported page, which naturally reflows if an element has actually been removed.
+
+## Scope and limitations
+
+Includes nested semantic elements, body selection, boxes, drag/drop, template blocks, mobile-friendly editing tabs, scrolling mobile preview, responsive CSS, CSS property inspector, fonts, animations, click actions, source copy/export, undo/redo, and browser local autosave.
+
+This is not a full Figma/Webflow replacement. It does not include arbitrary plugin execution, collaboration, asset hosting, a custom JavaScript AST inspector, visual animation timelines, or lossless round-tripping of every possible browser HTML/CSS/JavaScript construct. Custom JS is executed by the exported page, not inside the editor. Local autosave is per browser/device.
+
+## Tests
+
+`npm test` runs pure document model and exporter tests. Tests do not imply end-to-end browser coverage.
