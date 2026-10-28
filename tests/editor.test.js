@@ -1,0 +1,8 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {createBlank,createStarter,addItem,clone,insertExisting,cssEffective,generatedHTML,generatedCSS,generatedJS,fullHTML,wrapItem,removeItem,duplicateItem,generateBlock} from '../src/model.js';
+
+test('body is represented as a separate editable root with empty children',()=>{const doc=createBlank();assert.equal(doc.roots.length,0);assert.equal(doc.bodyStyles.margin,'0');assert.equal(doc.version,3)});
+test('adds nested box and leaf, then wraps leaf in a new box',()=>{let doc=createBlank();const box=addItem(doc,'div','body');doc=box.doc;const h=addItem(doc,'h1',box.key);doc=h.doc;assert.ok(doc.nodes[box.key].children.includes(h.key));const wrap=wrapItem(doc,h.key);doc=wrap.doc;assert.equal(doc.nodes[wrap.key].tag,'div');assert.equal(doc.nodes[wrap.key].children[0],h.key);assert.ok(generatedHTML(doc).includes('<h1'))});
+test('moving a parent inside its child is rejected without altering document',()=>{let doc=createBlank();const p=addItem(doc,'section');doc=p.doc;const c=addItem(doc,'div',p.key);doc=c.doc;const copy=clone(doc);assert.equal(insertExisting(copy,p.key,c.key),false);assert.deepEqual(copy.roots,doc.roots);assert.deepEqual(copy.nodes[p.key].children,doc.nodes[p.key].children)});
+test('mobile styles override tablet and base while desktop retains base',()=>{let doc=createBlank();const p=addItem(doc,'h1');doc=p.doc;doc.nodes[p.key].styles.fontSize='54px';doc.nodes[p.key].responsive={tablet:{fontSize¶»§q«^

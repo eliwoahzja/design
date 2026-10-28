@@ -1,0 +1,7 @@
+import React,{useState,useEffect,useRef,useMemo,useCallback} from 'react';
+import {SIZES,ELEMENTS,CONTAINERS,VOID,FONT_OPTIONS,ANIMATIONS,KEYS,createBlank,createStarter,node,clone,parentOf,isDescendant,addItem,insertExisting,removeItem,wrapItem,duplicateItem,cssEffective,generatedHTML,generatedCSS,generatedJS,fullHTML,importHTML,importCSS,generateBlock} from './model.js';
+const STORAGE='element-studio-react-v1';
+const initial=()=>{try{const data=JSON.parse(localStorage.getItem(STORAGE));if(data?.version===3&&data?.nodes&&data?.roots)return data}catch{}return createStarter()};
+const icons={plus:'+ ',copy:'⧉',download:'↓',eye:'◉',edit:'✎',trash:'⌫',layers:'▤',chevron:'›',chevdown:'⌄',undo:'↶',redo:'↷',code:'⌘',monitor:'▱',tablet:'▣',phone:'▯',check:'✓',expand:'⛶',settings:'⚙',grip:'⠿',close:'×',wrap:'▣'};
+const Icon=({name,size=16})=><span className="icon-symbol" aria-hidden="true" style={{fontSize:Math.max(12,size)}}>{icons[name]||'◇'}</span>;
+const glyph={div:'□',section:'▧',header:'▤',nav:'☷',main:'▥',footer:'▁',article:'▣',aside:'▥',h1:'H1',h2:'H2',h3:'H3',p:'¶',span:'T',strong:'B',em:'i',small:'sm',blockquote:'❞',code:'</>',pre:'{}',button:'▣',a:'↗',input:'⌨',textarea:'☰',form:'☷',label:'Aa',select:'⌄',option:'·',img:'▧',hr:'─',ul:'≡',ol:'1.',li:'•',details:'⊞',summary:'⌄',figure:'▧',figcaption:'T',table:'▦',thead:'▣',tbody:'☷',tr:'↔',th:'TH',td:'TD',video:'▶',audio:'♫',progr���q�^
