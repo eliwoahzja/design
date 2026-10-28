@@ -1,3 +1,4 @@
+import {generatedActionSource} from './actions.js';
 export const SIZES = { mobile:[390,844], tablet:[768,1024], desktop:[1280,800] };
 export const ELEMENTS = {
   Structure: [['div','Box'],['section','Section'],['header','Header'],['nav','Navigation'],['main','Main'],['footer','Footer'],['article','Article'],['aside','Aside']],
@@ -184,9 +185,8 @@ export function generatedCSS(doc){
   const out=[base,rules,bp('tablet','(max-width: 1023px)'),bp('mobile','(max-width: 767px)'),frames,motion,doc.extraCSS].filter(Boolean).join('\n\n');return out+'\n@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; } }\n';
 }
 export function generatedJS(doc){
-  const actions=Object.values(doc.nodes).filter(n=>!isEditorSlot(n)&&n.action?.type&&n.action.type!=='none');
   let result=`document.addEventListener('DOMContentLoaded', () => {\n`;
-  for(const n of actions){const q=`document.querySelector(${JSON.stringify(`.element-${n.key}`)})`;const val=JSON.stringify(n.action.value||'').replace(/</g,'\\u003c');let expr='';const target=`document.querySelector(${val})`;switch(n.action.type){case 'alert':expr=`alert(${val});`;break;case 'scroll':expr=`${target}?.scrollIntoView({behavior:'smooth'});`;break;case 'toggle':expr=`${target}?.classList.toggle('is-hidden');`;break;case 'hide':expr=`if (${target}) ${target}.style.display = 'none';`;break;case 'show':expr=`if (${target}) ${target}.style.display = '';`;break;case 'set-text':expr=`if (${target}) ${target}.textContent = ${JSON.stringify(n.action.payload||'')};`;break;case 'open-url':expr=`if (/^https?:\\/\\//.test(${val})) window.open(${val}, '_blank', 'noopener,noreferrer');`;break;default:break}if(expr)result+=`  ${q}?.addEventListener('click', (event) => { event.preventDefault(); ${expr} });\n`;}
+  result+=generatedActionSource(doc.nodes);
   const motionNodes=Object.values(doc.nodes).filter(n=>!isEditorSlot(n)&&n.motion?.preset&&n.motion.preset!=='none');
   for(const n of motionNodes){const q=`document.querySelector(${JSON.stringify(`.element-${n.key}`)})`;const trigger=n.motion.trigger;if(trigger==='scroll')result+=`  { const element=${q}; if(element){ const observer=new IntersectionObserver(entries=>{if(entries.some(e=>e.isIntersecting)){element.classList.add('element-motion');observer.disconnect();}},{threshold:.18});observer.observe(element);} }\n`;else if(trigger==='click')result+=`  ${q}?.addEventListener('click', e=>{e.currentTarget.classList.remove('element-motion');void e.currentTarget.offsetWidth;e.currentTarget.classList.add('element-motion');});\n`;else if(trigger==='hover')result+=`  ${q}?.addEventListener('mouseenter', e=>{e.currentTarget.classList.remove('element-motion');void e.currentTarget.offsetWidth;e.currentTarget.classList.add('element-motion');});\n`;else result+=`  ${q}?.classList.add('element-motion');\n`;}
   result+=`});\n`;

@@ -242,3 +242,34 @@ button:hover .ui-icon-multi .ui-multi-links{transform:scale(1.25)}
  .mobile-nav button .ui-icon{width:21px;height:21px}
  .layer-inline-actions button .ui-icon{width:18px;height:18px}
 }
+
+/* Editor-only contextual tools and live source preview. */
+.canvas-area{position:relative}
+.canvas-tap-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap;background:#fffdfa;border-top:1px solid #e2e5de;border-bottom:1px solid #e2e5de;min-height:40px;padding:5px 13px;flex-shrink:0;z-index:8}
+.canvas-tap-actions>span{display:flex;align-items:center;gap:6px;margin-right:auto;color:#5c675c;font-size:11px;font-weight:800}
+.canvas-tap-actions>button{border:1px solid #e3e1dc;background:#fff;border-radius:7px;color:#464d47;min-height:30px;padding:5px 11px;font-size:11px;font-weight:750;transition:background .17s ease,transform .17s ease}
+.canvas-tap-actions>button:hover{background:#f5e9e3;transform:translateY(-1px)}
+.canvas-tap-actions>button:nth-last-child(2){background:#f4e3db;border-color:#e9c0b0;color:#95553e}
+.canvas-code-peek{position:absolute;z-index:24;bottom:104px;left:10px;right:10px;height:min(340px,53%);background:#202622;color:#e8eee8;display:flex;flex-direction:column;border:1px solid #536153;border-radius:13px;box-shadow:0 18px 42px #1a281a4d;overflow:hidden;animation:atelier-peek-in .22s ease-out}
+@keyframes atelier-peek-in{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.canvas-code-peek header{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:#2d352f;min-height:43px;border-bottom:1px solid #495548}
+.canvas-code-peek header strong,.canvas-code-peek header>div,.canvas-code-peek footer button{display:flex;align-items:center;gap:7px;font-size:12px}
+.canvas-code-peek button{background:transparent;color:#e2e8e1;border:0;border-radius:5px;padding:6px 8px;font-size:11px;cursor:pointer}
+.canvas-code-peek button:hover{background:#425044}
+.canvas-code-peek nav{display:flex;gap:5px;padding:6px 9px;border-bottom:1px solid #3c4a3c;overflow-x:auto;flex-shrink:0}
+.canvas-code-peek nav button.active{background:#c87459;color:white}
+.canvas-code-peek pre{margin:0;padding:12px 15px;flex:1;overflow:auto;white-space:pre;font:11px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace;overscroll-behavior:contain;user-select:text}
+.canvas-code-peek footer{padding:6px 12px;border-top:1px solid #3c4a3c;display:flex;align-items:center;justify-content:space-between;gap:6px;color:#a5b4a5;font-size:10px}
+.action-recipes{margin:12px 0;padding:12px;background:#f4f5f0;border:1px solid #e5e9df;border-radius:8px}
+.action-recipes strong{display:block;font-size:11px;color:#4d594d;margin-bottom:10px}
+.action-recipes>div{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.action-recipes button{padding:10px 8px;border:1px solid #d4ded4;border-radius:6px;background:white;color:#546458;text-align:left;font-size:11px;line-height:1.35}
+.action-recipes button:hover{border-color:#c77a5a;background:#fdf7f4}
+.action-target-tools{display:flex;flex-direction:column;gap:7px;margin:10px 0;padding:10px;background:#eef2ec;border-radius:8px}
+.action-target-tools button{display:flex;gap:8px;align-items:center;justify-content:center;min-height:36px;border-radius:7px;border:1px solid #cad8c6;background:#fafdF8;color:#3c5f43;font-weight:750;font-size:11px}
+.action-target-tools button:hover{background:#e2efe4}
+.action-pick-hint{position:absolute;z-index:30;top:64px;left:50%;transform:translateX(-50%);max-width:calc(100% - 16px);min-width:200px;display:flex;gap:10px;align-items:center;justify-content:space-between;background:#344b39;color:white;padding:10px 15px;border-radius:9px;box-shadow:0 12px 26px #25372956;font-weight:700;font-size:12px;pointer-events:auto}
+.action-pick-hint button{border:1px solid #9eb6a0;background:transparent;color:white;border-radius:6px;padding:6px 10px}
+@media(max-width:1000px),(pointer:coarse) and (max-device-width:650px){.canvas-tap-actions{padding:5px 8px;gap:5px}.canvas-tap-actions>button{min-height:36px;padding:6px 9px;font-size:11px}.canvas-tap-actions>span{font-size:10px}.canvas-code-peek{bottom:108px;height:min(43dvh,340px);left:6px;right:6px}.canvas-code-peek pre{font-size:10.5px}}
+@media(max-width:385px){.canvas-tap-actions>span{width:100%;margin-right:0}.canvas-code-peek{bottom:125px}}
+@media(prefers-reduced-motion:reduce){.canvas-code-peek,.canvas-tap-actions>button{animation:none!important;transition:none!important}}

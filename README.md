@@ -76,3 +76,14 @@ The drag/alignment engine is tested with node:test. Device-specific touch behavi
 - **Mobile multi-select:** Tap the first element, select **Select multiple** in the canvas toolbar, tap further elements, then press **Group**. The first element is retained when selection mode begins. Use **Done** to return to normal editing. The same controls are available in Layers.
 - **Layer actions:** Search, expand/collapse, move up/down, duplicate, and grouping controls use device-independent SVG instead of text glyphs. Icons have raised surfaces and subtle hover/active animation, with reduced-motion support.
 - Selecting/grouping affects only editor UI; generated HTML/CSS/JS stays free of editor-specific selection markup.
+
+
+## Direct selection and live code preview
+
+- **Tap a real element once** on the canvas to select it. Selection appears with a contextual toolbar; mobile users can immediately choose Design, JavaScript or View code without going through Layers.
+- **Live code preview** is available from the canvas (HTML, CSS, JavaScript and a complete single-file page). On desktop the code dock starts open; on mobile the canvas button opens a compact code peek while the Code tab remains a full editor.
+- **One-tap copy** is available for each source tab and the full page. Project ZIP export still creates separate `index.html`, `style.css` and `script.js` files.
+- **Visual JavaScript** is not limited to buttons: choose `click`, `dblclick`, `input`, `change`, `submit`, `focus`, `blur`, `mouseenter`, `mouseleave` or `keydown`, then a behavior. Supported behaviors include visibility, classes, smooth scrolling, text/value sync, counters, CSS style changes, focusing, form resets and validation, alerts and safe HTTPS links.
+- Use **Pick target on canvas** to choose the target element without writing a CSS selector. The chosen element gets a stable generated class selector. The same behavior logic is used in the preview and the exported script.
+
+Generated JavaScript includes only configured behaviors and animation triggers; the app does not invent unnecessary scripts for static elements. Advanced source editing remains optional.
