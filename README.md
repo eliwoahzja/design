@@ -1,4 +1,6 @@
-# element. — React visual website studio
+# Atelier by eli — visual HTML/CSS/JS studio
+
+# Atelier by eli — React visual website studio
 
 An editor built with **React 19 and Vite 7**, using a real HTML node tree and an inspectable CSS document model. The editor and the exported website are separate: **open the React app**, not an exported `index.html`, to edit elements.
 
@@ -58,3 +60,14 @@ This is not a full Figma/Webflow replacement. It does not include arbitrary plug
 - Tapping empty page space does not change the selected element or canvas position. Scroll gestures are excluded from selection, and HTML5 native element dragging is disabled for coarse touch pointers. Select the page `body` explicitly in Layers or via its breadcrumb.
 
 These changes are backed by the document-model and geometry tests in `tests/grouping.test.js` and `tests/resize.test.js`.
+
+## October 2026 — touch and alignment update
+
+- Inlined SVG icons: no reliance on device emoji or icon fonts.
+- A larger floating **Move** handle for touch and mouse, plus compact resize handles for short text elements.
+- Smart alignment to parent and sibling edges/centers with visible guides.
+- Optional grid snapping, container bounds, automatic viewport fit, and opening animation. Toggle in **Editor settings** (gear icon); these preferences save to local storage.
+- Water fills the screen from bottom to 100%, then drains to reveal the editor. Reduced-motion preferences bypass the animation.
+- Existing HTML/CSS/JS exports, layers, grouping, and undo/redo stay intact.
+
+The drag/alignment engine is tested with node:test. Device-specific touch behavior requires testing on actual browsers.
