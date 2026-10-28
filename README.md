@@ -48,3 +48,13 @@ This is not a full Figma/Webflow replacement. It does not include arbitrary plug
 ## Tests
 
 `npm test` runs pure document model and exporter tests. Tests do not imply end-to-end browser coverage.
+
+## Resize, grouping, and canvas-selection behavior
+
+- Click an element to see eight on-canvas resize grips. Drag a grip with a mouse or touch; releasing saves CSS `width` and `height` for the active viewport, and Undo restores the previous size. Hold Shift while dragging a corner to maintain the aspect ratio.
+- Open **Layers → Select multiple**, tap sibling layers, then choose **Group**. On desktop, Shift/Ctrl-click elements and press **Ctrl/Cmd+G**. Groups are exported as actual nested HTML `<div class="studio-group">` containers. Choose **Ungroup** or press **Ctrl/Cmd+Shift+G** to unwrap the group without deleting its children.
+- To preserve HTML semantics, only layers sharing the same immediate parent can be grouped. The editor displays an explanation for incompatible selections.
+- Generated HTML/CSS/JS contains no boilerplate comments; any comments entered intentionally in custom CSS or JavaScript are kept.
+- Tapping empty page space does not change the selected element or canvas position. Scroll gestures are excluded from selection, and HTML5 native element dragging is disabled for coarse touch pointers. Select the page `body` explicitly in Layers or via its breadcrumb.
+
+These changes are backed by the document-model and geometry tests in `tests/grouping.test.js` and `tests/resize.test.js`.
