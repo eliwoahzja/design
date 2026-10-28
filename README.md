@@ -71,3 +71,6 @@ These changes are backed by the document-model and geometry tests in `tests/grou
 - Existing HTML/CSS/JS exports, layers, grouping, and undo/redo stay intact.
 
 The drag/alignment engine is tested with node:test. Device-specific touch behavior requires testing on actual browsers.
+
+## Multi-selection
+Desktop: select the first canvas element, then Shift + right-click more elements. Mobile: select one element, use Select multiple above the canvas footer, then tap more and press Group. Animated SVG control icons adapt to high-density screens and reduced motion.
